@@ -2,7 +2,8 @@
 #include<math.h>
 #include<assert.h>
 
-const int INF_ROOTS = -1;
+enum {NO_ROOTS, ONE_ROOT, TWO_ROOTS, INF_ROOTS};
+
 
 int solve_1(double a, double b, double c, double* x1, double* x2);
 int solve_2(double b, double c, double* x1);
@@ -11,26 +12,26 @@ int solve_2(double b, double c, double* x1);
 int main()
 
 {
-    printf("# Square equetion solver by Emir \n");
+    printf("# Square equetion solver 2.0 by Emir \n");
     printf("# FRKT\n\n");
 
     printf("Enter coefficients a, b, c:\n");
 
-    double a = 0, b = 0, c = 0;
+    double a = NAN, b = NAN, c = NAN;
     scanf("%lg %lg %lg", &a, &b, &c);
 
-    double x1 = 0, x2 = 0;
+    double x1 = NAN, x2 = NAN;
     int nRoots = solve_1(a, b, c, &x1, &x2);
 
     switch(nRoots)
     {
-        case 0:    printf("No roots\n");
+        case NO_ROOTS :    printf("No roots\n");
                     break;
 
-        case 1:    printf("x = %lg\n", x1);
+        case ONE_ROOT :    printf("x = %lg\n", x1);
                     break;
 
-        case 2:    printf("x1 = %lg, x2 = %lg\n", x1, x2);
+        case TWO_ROOTS:    printf("x1 = %lg, x2 = %lg\n", x1, x2);
                     break;
 
         case INF_ROOTS:    printf("Any number\n");
@@ -53,7 +54,7 @@ int solve_1(double a, double b, double c, double* x1, double* x2)
 
     if (a == 0)
     {
-        return solve_2( b,  c, &x1);
+        return solve_2( b,  c, x1);
     }
     else
     {
@@ -68,19 +69,19 @@ int solve_1(double a, double b, double c, double* x1, double* x2)
         }
         if (d < 0)
         {
-            return 0;
+            return NO_ROOTS;
         }
         else
         {
             *x1 = -b/(2*a);
-            return 1;
+            return ONE_ROOT;
         }
     }
 }
+
 int solve_2(double b, double c, double* x1)
+
 {
-
-
     if (b == 0)
         {
             if (c == 0)
@@ -89,13 +90,12 @@ int solve_2(double b, double c, double* x1)
             }
             else
             {
-                return 0;
+                return NO_ROOTS;
             }
         }
-        else
+    else
         {
             *x1 = -c/b;
-
-            return 1;
+            return ONE_ROOT;
         }
 }
