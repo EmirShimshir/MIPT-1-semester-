@@ -5,7 +5,7 @@
 const int INF_ROOTS = -1;
 
 int solve_1(double a, double b, double c, double* x1, double* x2);
-int solve_2(double b, double c,double* x1);
+int solve_2(double b, double c, double* x1);
 
 
 int main()
